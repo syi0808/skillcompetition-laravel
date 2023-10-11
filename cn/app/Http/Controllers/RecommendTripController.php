@@ -17,6 +17,9 @@ class RecommendTripController extends Controller
             -> get();
 
         $groupedTrips = $trips->groupBy('recommend_trip_id');
+        // "1": {
+        //   [...trips]
+        // }
 
         $groupedTripsJson = $groupedTrips->map(function ($trips, $recommend_trip_id) {
             return [
@@ -47,6 +50,8 @@ class RecommendTripController extends Controller
         $trips = Trip::query()
             -> select('trip_name', DB::raw('SUM(score) as score'))
             -> groupBy('trip_name')
+            -> orderBy('score', 'desc')
+            -> limit(5)
             -> get();
 
         return response()->json([
@@ -72,7 +77,7 @@ class RecommendTripController extends Controller
             Trip::query()->create([
                 'recommend_trip_id' => $recommendTrip->id,
                 'score' => $trip['score'],
-                'trip_name' => $trip['name'],
+                'trip_name' => urldecode($trip['name']),
             ]);
         }
 

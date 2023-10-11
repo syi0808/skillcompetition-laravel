@@ -29,6 +29,7 @@ class GallaryController extends Controller
         ]);
 
         foreach($request->file('images') as $file) {
+            // 이미지 저장 코드
             $fileName = $file->getClientOriginalName();
             $extension = $file->extension();
             $name = time().'_'.$fileName;
@@ -36,6 +37,7 @@ class GallaryController extends Controller
 
             $file->move(public_path().'/files/', $name);
 
+            // 썸네일 생성 코드
             if($extension === "png") {
                 $img = imagecreatefrompng($imagePath);
             } else {
@@ -70,6 +72,7 @@ class GallaryController extends Controller
                 imagejpeg($thumb, $thumbPath);
             }
 
+            // 저장된 이미지와 썸네일 파일 이름을 db에 저장
             Gallary::query()->create(['image'=>$name, 'thumbnail'=>$thumbName]);
         }
 

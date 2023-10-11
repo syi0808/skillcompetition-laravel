@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/recommend', function () {
+    return view('recommend');
+});
+
+Route::get('/gallary', function () {
+    return view('gallary');
 });
