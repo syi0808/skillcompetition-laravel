@@ -41,7 +41,7 @@
 <div class="item-wrapper">
 </div>
 
-@if(Auth::user()->role == "admin")
+@if(Auth::check() && Auth::user()->role == "admin")
     <form onsubmit="addImage(event)">
         <input multiple name="images" type="file">
         <button>추가하기</button>
