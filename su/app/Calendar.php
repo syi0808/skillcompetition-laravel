@@ -8,6 +8,6 @@ class Calendar extends Model
 {
     //
     protected $fillable = [
-        'reservation_id', 'date',
+        'reservation_id', 'reserve_date',
     ];
 }

@@ -37,7 +37,7 @@ class UserController extends Controller
     }
 
     public function login(Request $request) {
-        $user = User::query()->where(['id' => $request->get('id'), 'password' => $request->get('password')])->first(['id', 'name', 'tel']);
+        $user = User::query()->where(['email' => $request->get('email'), 'password' => $request->get('password')])->first(['id', 'name', 'tel']);
 
         if($user) {
             $request->session()->regenerate();
