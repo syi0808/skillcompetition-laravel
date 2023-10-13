@@ -9,6 +9,18 @@ class CampgroundController extends Controller
 {
     public function getCampground(Request $request) {
         $request->validate([
+            "campground" => 'required',
+            "number" => 'required',
+        ]);
+
+        return response()->json(Campgrounds::query()->where([
+            'name'=>urldecode($request->campground),
+            'number'=>$request->number
+        ])->first());
+    }
+
+    public function getCampgrounds(Request $request) {
+        $request->validate([
             "date" => 'required',
             "campground" => 'required',
         ]);

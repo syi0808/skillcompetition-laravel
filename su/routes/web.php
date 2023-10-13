@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/reserve.php', function () {
-    return view('reserve');
+Route::get("/", function() {
+    return view("index");
+});
+
+Route::get('/camping.php', function() {
+    return view('camping');
+});
+
+Route::get('/list', function() {
+    return view('reserve_list');
+});
+
+Route::get('/reserve.php', function (Request $request) {
+    $request->validate([
+        'campground' => 'required',
+    ]);
+
+    return view('reserve')->with('campground', $request->campground);
 });

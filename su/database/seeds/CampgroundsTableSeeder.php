@@ -19,7 +19,7 @@ class CampgroundsTableSeeder extends Seeder
 
         for ($i = 0; $i < 16; $i++) {
             DB::table("campgrounds")->insert([
-                ['name' => '오토갬핑장', 'number' => $i + 1],
+                ['name' => '오토캠핑장', 'number' => $i + 1],
             ]);
         }
     }

@@ -17,9 +17,9 @@ class CreateReservationsTable extends Migration
             $table->id();
             $table->date('start_date');
             $table->date('end_date');
-            $table->integer('car_number');
+            $table->string('car_number');
             $table->integer('people_count');
-            $table->integer('price');
+            $table->string('price');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

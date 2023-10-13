@@ -2,12 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Calendar;
 use App\Reservations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
+    public function read() {
+        if(!Auth::check()) {
+            return response()->json([
+               'message' => 'failed',
+            ]);
+        }
+
+        return response()->json(Reservations::query()->where(['user_id'=>Auth::user()->id])->get());
+    }
+
+    public function destroy(Request $request) {
+        if(!Auth::check()) {
+            return response()->json([
+                'message' => 'failed',
+            ]);
+        }
+
+        $request->validate([
+            'reservation_id' => 'required'
+        ]);
+
+        Calendar::query()->where(['reservation_id' => $request->reservation_id])->delete();
+        Reservations::query()->where(['id' => $request->reservation_id])->delete();
+
+        return response()->json([
+            'message' => 'success'
+        ]);
+    }
+
     public function create(Request $request) {
         $request->validate([
             'start_date' => 'required',
@@ -20,7 +50,7 @@ class ReservationController extends Controller
 
         if(!Auth::check()) {
             return response()->json([
-               message => "failed"
+               'message' => "failed"
             ], 401);
         }
 

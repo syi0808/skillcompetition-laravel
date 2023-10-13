@@ -28,6 +28,9 @@ Route::get("/logout", 'UserController@logout');
 
 Route::get("/calendar", 'CalendarController@getCalendarByMonth');
 
+Route::get('/reservation', 'ReservationController@read');
 Route::post('/reservation', 'ReservationController@create');
+Route::delete('/reservation', 'ReservationController@destroy');
 
+Route::get("/campgrounds", 'CampgroundController@getCampgrounds');
 Route::get("/campground", 'CampgroundController@getCampground');
